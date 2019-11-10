@@ -1,58 +1,10 @@
+mod coordinate;
+mod point;
+mod vector;
+
+use crate::point::Point3D;
+use crate::vector::{General, Normal, Vector3D};
 use piston_window::*;
-use std::marker::PhantomData;
-
-struct Point3D {
-    x: f32,
-    y: f32,
-    z: f32,
-}
-
-#[derive(Debug)]
-struct General();
-
-#[derive(Debug)]
-struct Normal();
-
-#[derive(Debug)]
-struct Vector3D<T> {
-    x: f32,
-    y: f32,
-    z: f32,
-    _t: PhantomData<T>,
-}
-
-impl<T> Vector3D<T> {
-    fn new(x: f32, y: f32, z: f32) -> Vector3D<General> {
-        Vector3D::<General> {
-            x,
-            y,
-            z,
-            _t: PhantomData,
-        }
-    }
-
-    fn length(&self) -> f32 {
-        (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt()
-    }
-}
-
-impl Vector3D<General> {
-    fn norm(&self) -> Vector3D<Normal> {
-        Vector3D::<Normal>::from(self.x, self.y, self.z)
-    }
-}
-
-impl Vector3D<Normal> {
-    fn from(x: f32, y: f32, z: f32) -> Vector3D<Normal> {
-        let len = (x.powi(2) + y.powi(2) + z.powi(2)).sqrt();
-        Vector3D::<Normal> {
-            x: x / len,
-            y: y / len,
-            z: z / len,
-            _t: PhantomData,
-        }
-    }
-}
 
 struct Sphere {
     center: Point3D,
@@ -82,7 +34,7 @@ struct Canvas {
 impl Canvas {
     fn new(x: f32, y: f32, z: f32, w: f32, h: f32) -> Canvas {
         let origin = Point3D { x, y, z };
-        let dir = Vector3D::<Normal>::from(0.0, 0.0, 1.0);
+        let dir = Vector3D::<Normal>::from(x, y, z);
         let dim = Dim2D {
             width: w,
             height: h,
@@ -107,7 +59,7 @@ fn main() {
         z: 75.0,
     };
 
-    let v1 = Vector3D::<Normal>::new(10.0, 20.0, 30.0);
+    let v1 = Vector3D::<General>::new(10.0, 20.0, 30.0);
     println!("v1={:?}", v1);
 
     let l1 = v1.length();

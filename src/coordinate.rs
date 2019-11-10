@@ -1,6 +1,10 @@
 pub trait Coordinate {}
 
 #[derive(Debug)]
+pub struct Screen();
+impl Coordinate for Screen {}
+
+#[derive(Debug)]
 pub struct Canvas();
 impl Coordinate for Canvas {}
 

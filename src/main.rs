@@ -1,49 +1,18 @@
+mod canvas;
 mod coordinate;
+mod dim;
+mod line;
+mod plane;
 mod point;
 mod vector;
 
 use crate::point::Point3D;
-use crate::vector::{General, Normal, Vector3D};
+use crate::vector::{General, Vector3D};
 use piston_window::*;
 
 struct Sphere {
     center: Point3D,
     radius: f32,
-}
-
-struct Line {
-    origin: Point3D,
-    dir: Vector3D<Normal>,
-}
-
-struct Plane {
-    origin: Point3D,
-    dir: Vector3D<Normal>,
-}
-
-struct Dim2D {
-    width: f32,
-    height: f32,
-}
-
-struct Canvas {
-    plane: Plane,
-    dim: Dim2D,
-}
-
-impl Canvas {
-    fn new(x: f32, y: f32, z: f32, w: f32, h: f32) -> Canvas {
-        let origin = Point3D { x, y, z };
-        let dir = Vector3D::<Normal>::from(x, y, z);
-        let dim = Dim2D {
-            width: w,
-            height: h,
-        };
-        Canvas {
-            plane: Plane { origin, dir },
-            dim,
-        }
-    }
 }
 
 fn main() {

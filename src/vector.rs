@@ -1,20 +1,24 @@
 use std::marker::PhantomData;
 
+pub trait Kind {}
+
 #[derive(Debug)]
 pub struct General();
+impl Kind for General {}
 
 #[derive(Debug)]
 pub struct Normal();
+impl Kind for Normal {}
 
 #[derive(Debug)]
-pub struct Vector3D<T> {
+pub struct Vector3D<T: Kind> {
     pub x: f32,
     pub y: f32,
     pub z: f32,
     _t: PhantomData<T>,
 }
 
-impl<T> Vector3D<T> {
+impl<T: Kind> Vector3D<T> {
     pub fn length(&self) -> f32 {
         (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt()
     }

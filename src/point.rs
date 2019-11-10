@@ -1,3 +1,5 @@
+use std::marker::PhantomData;
+
 #[derive(Debug)]
 pub struct Point3D {
     pub x: f32,
@@ -6,7 +8,8 @@ pub struct Point3D {
 }
 
 #[derive(Debug)]
-pub struct Point2D {
+pub struct Point2D<T> {
     pub x: f32,
     pub y: f32,
+    _c: PhantomData<T>,
 }

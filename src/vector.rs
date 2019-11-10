@@ -19,7 +19,7 @@ pub struct Vector3D<T: Kind> {
 }
 
 impl<T: Kind> Vector3D<T> {
-    pub fn length(&self) -> f32 {
+    pub fn norm(&self) -> f32 {
         (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt()
     }
 
@@ -60,16 +60,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_vector3d_length() {
+    fn test_vector3d_norm() {
         let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
-        assert_eq!(7.071068, v.length());
+        assert_eq!(7.071068, v.norm());
     }
 
     #[test]
     fn test_vector3d_dot() {
         let v1 = Vector3D::<General>::new(5.0, 4.0, 1.0);
         assert_eq!(42.0, v1.dot(&v1));
-        assert_eq!(v1.dot(&v1).sqrt(), v1.length());
+        assert_eq!(v1.dot(&v1).sqrt(), v1.norm());
 
         let v2 = Vector3D::<General>::new(2.0, 3.0, 5.0);
         assert_eq!(27.0, v1.dot(&v2));
@@ -80,7 +80,7 @@ mod tests {
     }
 
     #[test]
-    fn test_vector3d_norm() {
+    fn test_vector3d_normalize() {
         let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
         let n = v.normalize();
         assert_eq!([0.42426407, 0.56568545, 0.70710677], [n.x, n.y, n.z]);

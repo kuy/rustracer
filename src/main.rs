@@ -26,13 +26,13 @@ fn main() {
     let v1 = Vector3D::<General>::new(10.0, 20.0, 30.0);
     println!("v1={:?}", v1);
 
-    let l1 = v1.length();
+    let l1 = v1.norm();
     println!("v1.len={}", l1);
 
     let n1 = v1.normalize();
     println!("n1={:?}", n1);
 
-    let l2 = n1.length();
+    let l2 = n1.norm();
     println!("n1.len={}", l2);
 
     let mut window: PistonWindow = WindowSettings::new("rustracer", [100, 100])

@@ -50,3 +50,29 @@ impl Vector3D<Normal> {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_vector3d_length() {
+        let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
+        assert_eq!(7.071068, v.length());
+    }
+
+    #[test]
+    fn test_vector3d_norm() {
+        let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
+        let n = v.norm();
+        assert_eq!([0.42426407, 0.56568545, 0.70710677], [n.x, n.y, n.z]);
+    }
+
+    #[test]
+    fn test_vector3d_from() {
+        let n0 = Vector3D::<Normal>::from(3.0, 4.0, 5.0);
+        let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
+        let n = v.norm();
+        assert_eq!([n0.x, n0.y, n0.z], [n.x, n.y, n.z]);
+    }
+}

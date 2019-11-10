@@ -10,11 +10,6 @@ use crate::point::Point3D;
 use crate::vector::{General, Vector3D};
 use piston_window::*;
 
-struct Sphere {
-    center: Point3D,
-    radius: f32,
-}
-
 fn main() {
     let camera = Point3D {
         x: 50.0,

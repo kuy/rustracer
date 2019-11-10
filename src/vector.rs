@@ -34,7 +34,7 @@ impl Vector3D<General> {
         }
     }
 
-    pub fn norm(&self) -> Vector3D<Normal> {
+    pub fn normalize(&self) -> Vector3D<Normal> {
         Vector3D::<Normal>::from(self.x, self.y, self.z)
     }
 }
@@ -64,7 +64,7 @@ mod tests {
     #[test]
     fn test_vector3d_norm() {
         let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
-        let n = v.norm();
+        let n = v.normalize();
         assert_eq!([0.42426407, 0.56568545, 0.70710677], [n.x, n.y, n.z]);
     }
 
@@ -72,7 +72,7 @@ mod tests {
     fn test_vector3d_from() {
         let n0 = Vector3D::<Normal>::from(3.0, 4.0, 5.0);
         let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
-        let n = v.norm();
+        let n = v.normalize();
         assert_eq!([n0.x, n0.y, n0.z], [n.x, n.y, n.z]);
     }
 }

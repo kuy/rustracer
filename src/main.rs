@@ -65,7 +65,7 @@ fn main() {
     let l1 = v1.length();
     println!("v1.len={}", l1);
 
-    let n1 = v1.norm();
+    let n1 = v1.normalize();
     println!("n1={:?}", n1);
 
     let l2 = n1.length();

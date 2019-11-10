@@ -1,0 +1,9 @@
+[package]
+name = "rustracer"
+version = "0.1.0"
+authors = ["Yuki Kodama <endflow.net@gmail.com>"]
+edition = "2018"
+publish = false
+
+[dependencies]
+piston_window = "0.98.0"

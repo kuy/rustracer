@@ -22,6 +22,10 @@ impl<T: Kind> Vector3D<T> {
     pub fn length(&self) -> f32 {
         (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt()
     }
+
+    pub fn dot(&self, other: &Self) -> f32 {
+        self.x * other.x + self.y * other.y + self.z * other.z
+    }
 }
 
 impl Vector3D<General> {
@@ -59,6 +63,20 @@ mod tests {
     fn test_vector3d_length() {
         let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
         assert_eq!(7.071068, v.length());
+    }
+
+    #[test]
+    fn test_vector3d_dot() {
+        let v1 = Vector3D::<General>::new(5.0, 4.0, 1.0);
+        assert_eq!(42.0, v1.dot(&v1));
+        assert_eq!(v1.dot(&v1).sqrt(), v1.length());
+
+        let v2 = Vector3D::<General>::new(2.0, 3.0, 5.0);
+        assert_eq!(27.0, v1.dot(&v2));
+
+        let v3 = Vector3D::<General>::new(5.0, 5.0, 0.0);
+        let v4 = Vector3D::<General>::new(0.0, 0.0, 5.0);
+        assert_eq!(0.0, v3.dot(&v4));
     }
 
     #[test]

@@ -28,7 +28,7 @@ impl<T: Kind> Vector3D<T> {
     }
 
     pub fn add(&self, other: &Self) -> Vector3D<General> {
-        Vector3D::<General>::new(self.x + other.x, self.y + other.x, self.z + other.z)
+        Vector3D::<General>::new(self.x + other.x, self.y + other.y, self.z + other.z)
     }
 
     pub fn mul(&self, k: f32) -> Vector3D<General> {
@@ -85,6 +85,21 @@ mod tests {
         let v3 = Vector3D::<General>::new(5.0, 5.0, 0.0);
         let v4 = Vector3D::<General>::new(0.0, 0.0, 5.0);
         assert_eq!(0.0, v3.dot(&v4));
+    }
+
+    #[test]
+    fn test_vector3d_add() {
+        let v1 = Vector3D::<General>::new(3.0, 4.0, 5.0);
+        let v2 = Vector3D::<General>::new(5.0, 4.0, 3.0);
+        let v3 = v1.add(&v2);
+        assert_eq!([8.0, 8.0, 8.0], [v3.x, v3.y, v3.z]);
+    }
+
+    #[test]
+    fn test_vector3d_mul() {
+        let v = Vector3D::<General>::new(3.0, 4.0, 5.0);
+        let r = v.mul(3.0);
+        assert_eq!([9.0, 12.0, 15.0], [r.x, r.y, r.z]);
     }
 
     #[test]

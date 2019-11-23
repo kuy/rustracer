@@ -17,10 +17,23 @@ impl Sphere {
 
     pub fn intersection(&self, line: &Line) -> Option<Vec<Point3D>> {
         let v1 = line.origin.to(&self.center);
-        assert_eq!(5.0, v1.norm());
-        assert!(false);
-
+        let nv1 = v1.norm();
         let dp = line.dir.dot(&v1);
+        assert_eq!(10.0, dp);
+
+        let v2 = line.dir.mul(dp);
+        let nv2 = v2.norm();
+
+        let a = (nv1.powi(2) - nv2.powi(2)).sqrt();
+        assert_eq!(3.0, a);
+
+        let b = (self.radius.powi(2) - a.powi(2)).sqrt();
+        assert_eq!(4.0, b);
+
+        let ov1 = line.dir.mul(nv2 - b);
+        let ov2 = line.dir.mul(nv2 + b);
+
+        assert!(false);
 
         None
     }

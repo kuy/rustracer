@@ -1,6 +1,6 @@
 use crate::canvas::Canvas;
 use crate::coordinate::{self as coord, Coordinate};
-use crate::vector::{General, Vector3D};
+use crate::vector::{General, Kind, Vector3D};
 use std::marker::PhantomData;
 
 #[derive(Debug)]
@@ -46,5 +46,30 @@ impl Point3D {
 
     pub fn to(&self, dest: &Self) -> Vector3D<General> {
         Vector3D::<General>::new(dest.x - self.x, dest.y - self.y, dest.z - self.z)
+    }
+
+    pub fn base<T: Kind>(&self, vec: &Vector3D<T>) -> Point3D {
+        Point3D::new(self.x + vec.x, self.y + vec.y, self.z + vec.z)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_point3d_to() {
+        let p1 = Point3D::new(5.0, 5.0, 5.0);
+        let p2 = Point3D::new(5.0, 0.0, 0.0);
+        let v = p1.to(&p2);
+        assert_eq!([0.0, -5.0, -5.0], [v.x, v.y, v.z]);
+    }
+
+    #[test]
+    fn test_point3d_base() {
+        let p1 = Point3D::new(5.0, 5.0, 5.0);
+        let v1 = Vector3D::<General>::new(0.0, -5.0, -3.0);
+        let r1 = p1.base(&v1);
+        assert_eq!([5.0, 0.0, 2.0], [r1.x, r1.y, r1.z]);
     }
 }

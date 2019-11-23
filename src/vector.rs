@@ -23,7 +23,7 @@ impl<T: Kind> Vector3D<T> {
         (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt()
     }
 
-    pub fn dot(&self, other: &Self) -> f32 {
+    pub fn dot<S: Kind>(&self, other: &Vector3D<S>) -> f32 {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
 
@@ -85,6 +85,13 @@ mod tests {
         let v3 = Vector3D::<General>::new(5.0, 5.0, 0.0);
         let v4 = Vector3D::<General>::new(0.0, 0.0, 5.0);
         assert_eq!(0.0, v3.dot(&v4));
+    }
+
+    #[test]
+    fn test_vector3d_dot_mixed() {
+        let n1 = Vector3D::<Normal>::from(0.0, 0.0, 5.0);
+        let g1 = Vector3D::<General>::new(3.0, 0.0, 4.0);
+        assert_eq!(4.0, n1.dot(&g1));
     }
 
     #[test]

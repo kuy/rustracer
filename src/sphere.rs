@@ -16,6 +16,12 @@ impl Sphere {
     }
 
     pub fn intersection(&self, line: &Line) -> Option<Vec<Point3D>> {
+        let v1 = line.origin.to(&self.center);
+        assert_eq!(5.0, v1.norm());
+        assert!(false);
+
+        let dp = line.dir.dot(&v1);
+
         None
     }
 }

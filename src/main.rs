@@ -4,6 +4,7 @@ mod dim;
 mod line;
 mod plane;
 mod point;
+mod sphere;
 mod vector;
 
 use crate::point::Point3D;

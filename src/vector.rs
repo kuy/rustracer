@@ -26,6 +26,14 @@ impl<T: Kind> Vector3D<T> {
     pub fn dot(&self, other: &Self) -> f32 {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
+
+    pub fn add(&self, other: &Self) -> Vector3D<General> {
+        Vector3D::<General>::new(self.x + other.x, self.y + other.x, self.z + other.z)
+    }
+
+    pub fn mul(&self, k: f32) -> Vector3D<General> {
+        Vector3D::<General>::new(self.x * k, self.y * k, self.z * k)
+    }
 }
 
 impl Vector3D<General> {

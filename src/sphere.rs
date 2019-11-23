@@ -24,7 +24,12 @@ impl Sphere {
         let nv2 = v2.norm();
 
         let a = (nv1.powi(2) - nv2.powi(2)).sqrt();
+        if a > self.radius {
+            return None;
+        }
+
         let b = (self.radius.powi(2) - a.powi(2)).sqrt();
+        println!("b={}", b);
 
         let ov1 = line.dir.mul(nv2 - b);
         let p1 = line.origin.base(&ov1);
@@ -54,5 +59,34 @@ mod tests {
         assert_eq!(2, i1.len());
         assert_eq!([7.0, 0.0, 14.0], [i1[0].x, i1[0].y, i1[0].z]);
         assert_eq!([7.0, 0.0, 6.0], [i1[1].x, i1[1].y, i1[1].z]);
+    }
+
+    #[test]
+    fn test_intersection_center() {
+        let s = Sphere::new(10.0, 0.0, 10.0, 5.0);
+        let l1 = Line {
+            origin: Point3D::new(10.0, 0.0, 20.0),
+            dir: Vector3D::<Normal>::from(0.0, 0.0, -1.0),
+        };
+
+        let i1 = s.intersection(&l1);
+        assert!(i1.is_some());
+
+        let i1 = i1.unwrap();
+        assert_eq!(2, i1.len());
+        assert_eq!([10.0, 0.0, 15.0], [i1[0].x, i1[0].y, i1[0].z]);
+        assert_eq!([10.0, 0.0, 5.0], [i1[1].x, i1[1].y, i1[1].z]);
+    }
+
+    #[test]
+    fn test_intersection_zero() {
+        let s = Sphere::new(10.0, 0.0, 10.0, 5.0);
+        let l1 = Line {
+            origin: Point3D::new(20.0, 0.0, 20.0),
+            dir: Vector3D::<Normal>::from(0.0, 0.0, -1.0),
+        };
+
+        let i1 = s.intersection(&l1);
+        assert!(i1.is_none());
     }
 }

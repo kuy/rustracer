@@ -19,23 +19,19 @@ impl Sphere {
         let v1 = line.origin.to(&self.center);
         let nv1 = v1.norm();
         let dp = line.dir.dot(&v1);
-        assert_eq!(10.0, dp);
 
         let v2 = line.dir.mul(dp);
         let nv2 = v2.norm();
 
         let a = (nv1.powi(2) - nv2.powi(2)).sqrt();
-        assert_eq!(3.0, a);
-
         let b = (self.radius.powi(2) - a.powi(2)).sqrt();
-        assert_eq!(4.0, b);
 
         let ov1 = line.dir.mul(nv2 - b);
+        let p1 = line.origin.base(&ov1);
         let ov2 = line.dir.mul(nv2 + b);
+        let p2 = line.origin.base(&ov2);
 
-        assert!(false);
-
-        None
+        Some(vec![p1, p2])
     }
 }
 
@@ -56,7 +52,7 @@ mod tests {
 
         let i1 = i1.unwrap();
         assert_eq!(2, i1.len());
-        assert_eq!([7.0, 0.0, 6.0], [i1[0].x, i1[0].y, i1[0].z]);
-        assert_eq!([7.0, 0.0, 14.0], [i1[1].x, i1[1].y, i1[1].z]);
+        assert_eq!([7.0, 0.0, 14.0], [i1[0].x, i1[0].y, i1[0].z]);
+        assert_eq!([7.0, 0.0, 6.0], [i1[1].x, i1[1].y, i1[1].z]);
     }
 }

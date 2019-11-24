@@ -6,4 +6,5 @@ edition = "2018"
 publish = false
 
 [dependencies]
-piston_window = "0.98.0"
+piston_window = "0.105.0"
+image = "0.22.3"

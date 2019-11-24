@@ -8,7 +8,6 @@ mod sphere;
 mod vector;
 
 use crate::canvas::Canvas;
-use crate::coordinate as coord;
 use crate::point::{Point2D, Point3D};
 use crate::sphere::Sphere;
 use piston_window::*;
@@ -16,7 +15,7 @@ use piston_window::*;
 fn main() {
     let canvas = Canvas::new(50.0, 50.0, 75.0, 100.0, 100.0);
     let camera = Point3D::new(50.0, 50.0, 150.0);
-    let obj1 = Sphere::new(50.0, 20.0, 50.0, 20.0);
+    let obj1 = Sphere::new(50.0, 50.0, 50.0, 20.0);
 
     let width: usize = 100;
     let height: usize = 100;
@@ -36,7 +35,7 @@ fn main() {
         // let i = buf.len();
         let x = i % width;
         let y = (i - x) / width;
-        let pos = Point2D::<coord::Screen>::screen_at(x as i32, y as i32);
+        let pos = Point2D::screen_at(x as i32, y as i32);
         let ray = canvas.cast_ray(&pos, &camera);
 
         let pixel = match obj1.intersection(&ray) {

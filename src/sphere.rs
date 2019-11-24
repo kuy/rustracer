@@ -1,6 +1,5 @@
 use crate::line::Line;
 use crate::point::Point3D;
-use crate::vector::{General, Normal, Vector3D};
 
 pub struct Sphere {
     pub center: Point3D,
@@ -48,13 +47,14 @@ impl Sphere {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::vector::{Normal, Vector3D};
 
     #[test]
     fn test_intersection() {
         let s = Sphere::new(10.0, 0.0, 10.0, 5.0);
         let l1 = Line {
             origin: Point3D::new(7.0, 0.0, 20.0),
-            dir: Vector3D::<Normal>::from(0.0, 0.0, -1.0),
+            dir: Vector3D::from(0.0, 0.0, -1.0),
         };
 
         let i1 = s.intersection(&l1);
@@ -71,7 +71,7 @@ mod tests {
         let s = Sphere::new(10.0, 0.0, 10.0, 5.0);
         let l1 = Line {
             origin: Point3D::new(10.0, 0.0, 20.0),
-            dir: Vector3D::<Normal>::from(0.0, 0.0, -1.0),
+            dir: Vector3D::from(0.0, 0.0, -1.0),
         };
 
         let i1 = s.intersection(&l1);
@@ -88,7 +88,7 @@ mod tests {
         let s = Sphere::new(10.0, 0.0, 10.0, 5.0);
         let l1 = Line {
             origin: Point3D::new(20.0, 0.0, 20.0),
-            dir: Vector3D::<Normal>::from(0.0, 0.0, -1.0),
+            dir: Vector3D::from(0.0, 0.0, -1.0),
         };
 
         let i1 = s.intersection(&l1);
@@ -100,7 +100,7 @@ mod tests {
         let s = Sphere::new(10.0, 0.0, 10.0, 5.0);
         let l1 = Line {
             origin: Point3D::new(15.0, 0.0, 20.0),
-            dir: Vector3D::<Normal>::from(0.0, 0.0, -1.0),
+            dir: Vector3D::from(0.0, 0.0, -1.0),
         };
 
         let i1 = s.intersection(&l1);

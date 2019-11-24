@@ -17,10 +17,10 @@ const W: usize = 400;
 const H: usize = 400;
 
 fn main() {
-    let canvas = Canvas::new(200.0, 200.0, 50.0, W as f32, H as f32);
-    let camera = Point3D::new(200.0, 200.0, 200.0);
-    let obj1 = Sphere::new(200.0, 25.0, 50.0, 25.0);
-    let light = Point3D::new(200.0, 400.0, 50.0);
+    let canvas = Canvas::new(0.0, 0.0, 100.0, W as f32, H as f32);
+    let camera = Point3D::new(0.0, 0.0, 800.0);
+    let obj1 = Sphere::new(0.0, 0.0, 0.0, 50.0);
+    let light = Point3D::new(0.0, 100.0, 50.0);
 
     let mut window: PistonWindow = WindowSettings::new("rustracer", [W as u32, H as u32])
         .exit_on_esc(true)
@@ -48,7 +48,7 @@ fn main() {
                     let dp1 = ray.dir.dot(&n);
                     let dp2 = vl.dot(&n);
                     let d = (dp1 - dp2).abs();
-                    let c = (d * 255.0).round() as u8;
+                    let c = 255 - (d * 255.0).round() as u8;
                     frame.put_pixel(x as u32, (H - y - 1) as u32, Rgba([c, c, c, 255]));
                 }
                 _ => (),

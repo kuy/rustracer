@@ -34,6 +34,15 @@ impl<T: Kind> Vector3D<T> {
     pub fn mul(&self, k: f32) -> Vector3D<General> {
         Vector3D::new(self.x * k, self.y * k, self.z * k)
     }
+
+    pub fn invert(&self) -> Vector3D<T> {
+        Vector3D::<T> {
+            x: -self.x,
+            y: -self.y,
+            z: -self.z,
+            _t: PhantomData,
+        }
+    }
 }
 
 impl Vector3D<General> {
@@ -115,6 +124,17 @@ mod tests {
         let v = Vector3D::new(3.0, 4.0, 5.0);
         let r = v.mul(3.0);
         assert_eq!([9.0, 12.0, 15.0], [r.x, r.y, r.z]);
+    }
+
+    #[test]
+    fn test_vector3d_invert() {
+        let v1 = Vector3D::new(0.0, 0.0, 0.0);
+        let r1 = v1.invert();
+        assert_eq!([0.0, 0.0, 0.0], [r1.x, r1.y, r1.z]);
+
+        let v2 = Vector3D::new(3.0, 4.0, 5.0);
+        let r2 = v2.invert();
+        assert_eq!([-3.0, -4.0, -5.0], [r2.x, r2.y, r2.z]);
     }
 
     #[test]

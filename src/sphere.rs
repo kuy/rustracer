@@ -14,7 +14,7 @@ impl Sphere {
         }
     }
 
-    pub fn intersection(&self, line: &Line) -> Option<Vec<Point3D>> {
+    pub fn intersection(&self, line: &Line) -> Option<Point3D> {
         let v1 = line.origin.to(&self.center);
         let nv1 = v1.norm();
         let dp = line.dir.dot(&v1);
@@ -31,15 +31,9 @@ impl Sphere {
             let ov1 = line.dir.mul(nv2 - b);
             let p1 = line.origin.base(&ov1);
 
-            // TODO: Naive impl.
-            if a == self.radius {
-                Some(vec![p1])
-            } else {
-                let ov2 = line.dir.mul(nv2 + b);
-                let p2 = line.origin.base(&ov2);
-
-                Some(vec![p1, p2])
-            }
+            // NOTE: Always returns single point even if there are
+            //  two intersections. The short one will be selected.
+            Some(p1)
         }
     }
 }
@@ -61,9 +55,7 @@ mod tests {
         assert!(i1.is_some());
 
         let i1 = i1.unwrap();
-        assert_eq!(2, i1.len());
-        assert_eq!([7.0, 0.0, 14.0], [i1[0].x, i1[0].y, i1[0].z]);
-        assert_eq!([7.0, 0.0, 6.0], [i1[1].x, i1[1].y, i1[1].z]);
+        assert_eq!([7.0, 0.0, 14.0], [i1.x, i1.y, i1.z]);
     }
 
     #[test]
@@ -78,9 +70,7 @@ mod tests {
         assert!(i1.is_some());
 
         let i1 = i1.unwrap();
-        assert_eq!(2, i1.len());
-        assert_eq!([10.0, 0.0, 15.0], [i1[0].x, i1[0].y, i1[0].z]);
-        assert_eq!([10.0, 0.0, 5.0], [i1[1].x, i1[1].y, i1[1].z]);
+        assert_eq!([10.0, 0.0, 15.0], [i1.x, i1.y, i1.z]);
     }
 
     #[test]
@@ -107,7 +97,6 @@ mod tests {
         assert!(i1.is_some());
 
         let i1 = i1.unwrap();
-        assert_eq!(1, i1.len());
-        assert_eq!([15.0, 0.0, 10.0], [i1[0].x, i1[0].y, i1[0].z]);
+        assert_eq!([15.0, 0.0, 10.0], [i1.x, i1.y, i1.z]);
     }
 }

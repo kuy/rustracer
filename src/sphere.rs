@@ -47,7 +47,7 @@ impl Sphere {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::vector::{Normal, Vector3D};
+    use crate::vector::Vector3D;
 
     #[test]
     fn test_intersection() {
